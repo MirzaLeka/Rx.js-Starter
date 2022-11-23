@@ -1,0 +1,21 @@
+{
+  "name": "rxjs-browserify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/app.js",
+  "scripts": {
+    "build-js": "browserify ./src/app.js -o ./public/bundle.js",
+    "watch-js": "watchify ./src/app.js -o ./public/bundle.js",
+    "build": "browserify ./src/app.ts -p [ tsify --noImplicitAny ] > ./public/bundle.js",
+    "watch": "watchify ./src/app.ts -p [ tsify --noImplicitAny ] -o ./public/bundle.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browserify": "^17.0.0",
+    "rxjs": "^7.5.7",
+    "tsify": "^5.0.4",
+    "watchify": "^4.0.0"
+  }
+}
