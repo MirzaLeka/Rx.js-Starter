@@ -13,7 +13,7 @@ Run the app
 ### GET
 ```http://localhost:3000/api/products?name=bmw```
 
-###POST
+### POST
 ```http://localhost:3000/api/products```
 
 ```json
