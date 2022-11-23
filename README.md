@@ -1,5 +1,5 @@
 
-# Install and setup
+# Install and setup (web folder)
 
 ## TypeScript
 
