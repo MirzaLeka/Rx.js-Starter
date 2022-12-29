@@ -52,6 +52,6 @@ Go to src/app.js and start coding.
 
 Run Live-Server like explained above.
 
-Go to cdd/scripts.js and start coding.
+Go to cdn/scripts.js and start coding.
 
 There will be no bundle file.
