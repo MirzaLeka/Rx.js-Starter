@@ -2,9 +2,9 @@ import { Observable } from 'rxjs';
 import { CreateUserDTO, UserDTO } from '../models/users.model';
 
 export interface IUsersService {
-  createUser(user: CreateUserDTO): Observable<UserDTO>;
+  createUser(userData: CreateUserDTO): Observable<UserDTO>;
 
   getUsers(): Observable<UserDTO[]>;
 
-  updateUser(user: CreateUserDTO): Observable<UserDTO>;
+  // updateUser(userData: CreateUserDTO, userId: number): Observable<UserDTO>;
 }

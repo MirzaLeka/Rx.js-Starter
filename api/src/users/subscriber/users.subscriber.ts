@@ -5,6 +5,8 @@ import {
 } from 'typeorm';
 import { UserEntity } from '../models/users.entity';
 
+// https://medium.com/@Semyonic/subscribers-a-k-a-entity-listeners-of-typeorm-on-nestjs-a97ac75acc2d
+
 @EventSubscriber()
 export class UsersSubscriber implements EntitySubscriberInterface<UserEntity> {
   listenTo() {
@@ -15,9 +17,14 @@ export class UsersSubscriber implements EntitySubscriberInterface<UserEntity> {
   //   console.log('after insert event :>> ', event);
   // }
 
-  // TODO create route
+  beforeUpdate(event: UpdateEvent<UserEntity>): void | Promise<any> {
+    console.log('before event.updatedColumns :>> ', event.updatedColumns);
+    // console.log('after update event :>> ', event);
+    // event.entity.originalProfilePicture = '213';
+  }
+
   afterUpdate(event: UpdateEvent<UserEntity>): void | Promise<any> {
-    console.log('event.updatedColumns :>> ', event.updatedColumns);
+    console.log('after event.updatedColumns :>> ', event.updatedColumns);
     // console.log('after update event :>> ', event);
     // event.entity.originalProfilePicture = '213';
   }

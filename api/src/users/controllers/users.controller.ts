@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get, Put } from '@nestjs/common';
+import { Body, Controller, Post, Get, Patch, Param } from '@nestjs/common';
 import { Observable } from 'rxjs/internal/Observable';
 import { CreateUserDTO, UserDTO } from '../models/users.model';
 import { UsersService } from '../services/users.service';
@@ -17,10 +17,15 @@ export class UsersController {
     return this.usersService.getUsers();
   }
 
-  @Put()
-  UpdateUser(@Body() user: CreateUserDTO): Observable<UserDTO> {
-    return this.usersService.updateUser(user)
+  // @Patch(':id')
+  // UpdateUser(@Body() user: CreateUserDTO, @Param() id: number): Observable<UserDTO> {
+  //   return this.usersService.updateUser(user, id)
+  // }
+
+
+  @Patch(':id')
+  UpdateUser(@Body() user: CreateUserDTO, @Param() id: string): Promise<UserDTO> {
+    return this.usersService.updateUser(user, 2)
   }
 
-  // update
 }

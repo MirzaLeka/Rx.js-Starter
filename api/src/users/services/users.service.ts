@@ -1,6 +1,10 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { catchError, from, of } from 'rxjs';
+import { catchError, from, NotFoundError, of } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../models/users.entity';
@@ -33,18 +37,35 @@ export class UsersService implements IUsersService {
     return from(this.usersRepository.find()).pipe(catchError((err) => of(err)));
   }
 
-  updateUser(userData: CreateUserDTO): Observable<UserDTO> {
-    const user = new UserEntity();
-    user.name = name;
+  async updateUser(userData: CreateUserDTO, id: number): Promise<any> {
+    const user = await this.usersRepository.findOne({
+      where: { id },
+    });
 
-    if (profilePicture) {
-      user.profilePicture = profilePicture;
+    console.log('userData :>> ', userData);
+
+    console.log('user :>> ', user);
+
+    if (!user) {
+      throw new NotFoundException();
     }
 
-    return from(this.usersRepository.save(user)).pipe(
-      catchError((err) => {
-        throw new BadRequestException(err);
-      }),
-    );
+    // TODO fix this pls
+
+    if (userData.profilePicture) {
+      user.profilePicture = userData.profilePicture;
+    }
+
+    if (userData.originalProfilePicture) {
+      user.originalProfilePicture = userData.originalProfilePicture;
+    }
+
+    if (userData.resizedProfilePicture) {
+      user.resizedProfilePicture = userData.resizedProfilePicture;
+    }
+
+    return this.usersRepository.save(user);
+
+    // return this.usersRepository.update(2, user);
   }
 }
